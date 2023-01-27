@@ -30,13 +30,15 @@ class VerticleEditing extends StatelessWidget {
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
-          body: ListView(children: [
-            kbox10,
+          body: Column(children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.width * 0.2,
+            ),
             Center(
               child: Screenshot(
                 controller: appservices.screenshotController,
                 child: Container(
-                  height: 530,
+                  height: 535,
                   width: 300,
                   decoration: BoxDecoration(
                     color: appservices.bgcolor,

@@ -42,7 +42,6 @@ class HorizontalEditing extends StatelessWidget {
               child: Screenshot(
                 controller: appservices.screenshotController,
                 child: Container(
-                  height: 200,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: appservices.bgcolor,
