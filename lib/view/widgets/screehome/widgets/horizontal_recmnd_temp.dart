@@ -1,10 +1,10 @@
-import 'package:abox/view/widgets/vertical_view/vertical_temp.dart';
-import 'package:abox/view/widgets/vertical_view/verticle_editing.dart';
+import 'package:abox/view/widgets/horizontal_view/horizontal_temp.dart';
+import 'package:abox/view/widgets/horizontal_view/widget/horizontal_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:abox/view/widgets/screehome/const.dart';
 
-class RecomendedTemplates extends StatelessWidget {
-  const RecomendedTemplates({
+class HorizontalRecomendedTemplates extends StatelessWidget {
+  const HorizontalRecomendedTemplates({
     Key? key,
   }) : super(key: key);
 
@@ -24,7 +24,7 @@ class RecomendedTemplates extends StatelessWidget {
                   borderRadius: BorderRadius.circular(18),
                 ),
                 child: const Text(
-                  'Verticle Templates',
+                  'Horizontal Templates',
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
@@ -33,22 +33,22 @@ class RecomendedTemplates extends StatelessWidget {
                   ),
                 ),
               ),
-              IconButton(
-                  icon: const Icon(
-                    Icons.arrow_forward_sharp,
-                    size: 20,
-                  ),
-                  onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const VerticleTemplates(),
-                        ),
-                      )),
+              // IconButton(
+              //     icon: const Icon(
+              //       Icons.arrow_forward_sharp,
+              //       size: 20,
+              //     ),
+              //     onPressed: () => Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //             builder: (context) => const NewModel(),
+              //           ),
+              //         )),
             ],
           ),
         ),
         SizedBox(
-          height: 180,
+          height: 105,
           child: ListView.builder(
               shrinkWrap: true,
               physics: const ScrollPhysics(),
@@ -61,64 +61,49 @@ class RecomendedTemplates extends StatelessWidget {
                     onTap: (() => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => VerticleEditing(
-                                    bgscolor: colors[index],
+                              builder: (context) => HorizontalEditing(
+                                    // bgscolor: colors[index],
+                                    color: colors[index],
                                     image: homeshot,
                                     appbartitle: text('Iphone 13 pro')[index],
-                                    mock: temp[index],
+                                    mock: temp[index], radiuses: models[index],
                                   )),
                         )),
                     child: Container(
                       // padding: const EdgeInsets.all(10.0),
-                      height: 150,
-                      width: 120,
+                      // height: 150,
+                      width: 220,
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white.withOpacity(0.6),
+                        borderRadius: BorderRadius.circular(8),
                         border: Border.all(
                           color: colors[2],
                           width: .5,
                         ),
                       ),
-                      child: Column(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SizedBox(
-                            width: 100,
-                            // decoration: BoxDecoration(
-                            //     color: colors[index],
-                            //     borderRadius: const BorderRadius.only(
-                            //       topRight: Radius.circular(10),
-                            //       topLeft: Radius.circular(50),
-                            //       bottomLeft: Radius.circular(0),
-                            //       bottomRight: Radius.circular(10),
-                            //     )),
-                            child: Column(
-                              // mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Stack(
-                                  children: [
-                                    Positioned(
-                                      left: 1.7,
-                                      top: 1,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(5),
-                                        child: Image.asset(
-                                          homeshot,
-                                          height: 69,
-                                        ),
-                                      ),
-                                    ),
-                                    Image.asset(
-                                      temp[index],
-                                      height: 70,
-                                    ),
-                                  ],
+                          Stack(
+                            children: [
+                              Positioned(
+                                left: 1.7,
+                                top: 1,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: Image.asset(
+                                    homeshot,
+                                    height: 69,
+                                  ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              Image.asset(
+                                temp[index],
+                                height: 70,
+                              ),
+                            ],
                           ),
+                          kboxwidth10,
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8.0, vertical: 2),

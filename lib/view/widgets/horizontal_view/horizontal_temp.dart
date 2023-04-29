@@ -1,4 +1,5 @@
 import 'package:abox/view/widgets/horizontal_view/widget/horizontal_edit.dart';
+import 'package:abox/view/widgets/vertical_view/vertical_temp.dart';
 import 'package:flutter/material.dart';
 import 'package:abox/view/widgets/screehome/const.dart';
 
@@ -9,6 +10,7 @@ class NewModel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: const Text(
           'Horizontal Templates',
           style: TextStyle(
@@ -19,7 +21,7 @@ class NewModel extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView.builder(
+      body: ListView.separated(
           shrinkWrap: true,
           physics: const ScrollPhysics(),
           // scrollDirection: Axis.horizontal,
@@ -142,6 +144,13 @@ class NewModel extends StatelessWidget {
                 ),
               ),
             );
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return ((index + 1) % 3 == 0)
+                ? const InlineAd()
+                : Container(
+                    height: 1,
+                  );
           }),
     );
   }

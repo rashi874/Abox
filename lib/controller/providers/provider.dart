@@ -1,4 +1,4 @@
-import 'package:abox/view/widgets/featured_screen/featured_screen.dart';
+import 'package:abox/view/widgets/about_screen/about_screen.dart';
 import 'package:flutter/material.dart';
 import '../../view/widgets/horizontal_view/horizontal_temp.dart';
 import '../../view/widgets/screehome/mainscreen.dart';
@@ -15,6 +15,7 @@ class AppProvider with ChangeNotifier {
     const ScreenHome(),
     const NewModel(),
     const VerticleTemplates(),
-    const FeaturedScreen(),
+    // const FeaturedScreen(),
+    const AboutApp(),
   ];
 }

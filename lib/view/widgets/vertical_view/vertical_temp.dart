@@ -1,10 +1,11 @@
-import 'package:abox/ad_helper.dart';
+import 'package:abox/controller/providers/ads_provider.dart';
+import 'package:abox/controller/providers/edit_provider.dart';
 import 'package:abox/view/widgets/vertical_view/verticle_editing.dart';
 import 'package:flutter/material.dart';
 import 'package:abox/view/widgets/screehome/const.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
 
-// ignore: must_be_immutable
 class VerticleTemplates extends StatefulWidget {
   const VerticleTemplates({
     Key? key,
@@ -15,14 +16,11 @@ class VerticleTemplates extends StatefulWidget {
 }
 
 class _VerticleTemplatesState extends State<VerticleTemplates> {
-  late BannerAd _inlineBannerAd;
   @override
   Widget build(BuildContext context) {
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //   Provider.of<AppProvider>(context, listen: false).load();
-    // });
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: const Text(
           'Verticle templates',
           style: TextStyle(
@@ -35,7 +33,7 @@ class _VerticleTemplatesState extends State<VerticleTemplates> {
       ),
       body: ListView(
         children: [
-          ListView.builder(
+          ListView.separated(
               shrinkWrap: true,
               physics: const ScrollPhysics(),
               // scrollDirection: Axis.horizontal,
@@ -157,48 +155,51 @@ class _VerticleTemplatesState extends State<VerticleTemplates> {
                     ),
                   ),
                 );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return ((index + 1) % 3 == 0)
+                    ? const InlineAd()
+                    : Container(
+                        height: 1,
+                      );
               }),
-          SizedBox(
-            // padding: const EdgeInsets.only(
-            //   bottom: 10,
-            // ),
-            width: _inlineBannerAd.size.width.toDouble(),
-            height: _inlineBannerAd.size.height.toDouble(),
-            child: AdWidget(ad: _inlineBannerAd),
-          ),
         ],
       ),
     );
   }
+}
 
-  void _createInlineBannerAd() {
-    _inlineBannerAd = BannerAd(
-      size: AdSize.mediumRectangle,
-      adUnitId: AdHelper.bannerAdUnitId,
-      request: const AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() {});
-        },
-        onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-        },
-      ),
-    );
-    _inlineBannerAd.load();
-  }
+class InlineAd extends StatefulWidget {
+  const InlineAd({
+    super.key,
+  });
 
   @override
-  void initState() {
-    super.initState();
+  State<InlineAd> createState() => _InlineAdState();
+}
 
-    _createInlineBannerAd();
+class _InlineAdState extends State<InlineAd> {
+  @override
+  Widget build(BuildContext context) {
+    final prov = Provider.of<AdsProvider>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      prov.createInlineBannerAd3(context);
+    });
+    return Consumer<AdsProvider>(builder: (context, appservices, _) {
+      return appservices.isinlineBannerAdAdLoaded
+          ? SizedBox(
+              width: appservices.inlineBannerAd?.size.width.toDouble(),
+              height: appservices.inlineBannerAd?.size.height.toDouble(),
+              child: AdWidget(ad: appservices.inlineBannerAd!),
+            )
+          : const SizedBox();
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
 
-    _inlineBannerAd.dispose();
+    AdsProvider().inlineBannerAd?.dispose();
   }
 }

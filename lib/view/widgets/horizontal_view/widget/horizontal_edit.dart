@@ -1,5 +1,7 @@
+import 'package:abox/controller/providers/ads_provider.dart';
 import 'package:abox/controller/providers/edit_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:abox/View/screens/widgets/image_text.dart';
@@ -24,8 +26,14 @@ class HorizontalEditing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<EditProvider>(context, listen: false).coler(color);
+    final prov = Provider.of<AdsProvider>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      prov.createBottomBannerAd(context);
+      prov.loadRewardedAd();
+    });
 
-    return Consumer<EditProvider>(builder: (context, appservices, _) {
+    return Consumer2<EditProvider, AdsProvider>(
+        builder: (context, appservices, adsservices, _) {
       return Scaffold(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         appBar: AppBar(
@@ -35,9 +43,18 @@ class HorizontalEditing extends StatelessWidget {
           ),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            kbox10,
+            adsservices.isBottomBannerAdLoaded
+                ? SizedBox(
+                    height: adsservices.bottomBannerAd?.size.height.toDouble(),
+                    width: adsservices.bottomBannerAd?.size.width.toDouble(),
+                    child: AdWidget(ad: adsservices.bottomBannerAd!),
+                  )
+                : const SizedBox(
+                    // height: 1,
+                    child: Text('Screenshot Maker'),
+                  ),
             Center(
               child: Screenshot(
                 controller: appservices.screenshotController,
@@ -209,7 +226,7 @@ class HorizontalEditing extends StatelessWidget {
                 ),
               ),
             ),
-            kbox20,
+            // kbox20,
             Column(
               children: [
                 Container(
@@ -327,10 +344,14 @@ class HorizontalEditing extends StatelessWidget {
                             ),
                             onPressed: () {
                               // saveToGallery(context);
+                              adsservices.rewardedAd?.show(
+                                onUserEarnedReward: (_, reward) {},
+                              );
                               appservices.screenshotController
                                   .capture(
                                       delay: const Duration(milliseconds: 0))
                                   .then((capturedImage) async {
+                                // appservices.saveImage(capturedImage!);
                                 appservices.saveImage(capturedImage!);
                                 appservices.showToast(" image saved");
                               }).catchError((onError) {

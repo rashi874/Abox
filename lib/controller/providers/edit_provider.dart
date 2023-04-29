@@ -1,10 +1,15 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:abox/ad_helper.dart';
 import 'package:abox/models/text_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+// import 'package:image_gallery_saver/image_gallery_saver.dart';
+// import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:abox/view/screens/widgets/default_button.dart';
@@ -186,20 +191,37 @@ class EditProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String> saveImage(Uint8List bytes) async {
+  // Future<String> saveImage(Uint8List bytes) async {
+  //   await [Permission.storage].request();
+  //   final time = DateTime.now()
+  //       .toIso8601String()
+  //       .replaceAll('.', '_')
+  //       .replaceAll(':', '_');
+  //   final name = 'screenshot_$time';
+  //   FilterQuality.high;
+  //   final result = await ImageGallerySaver.saveImage(
+  //     bytes,
+  //     name: name,
+  //     quality: 300,
+  //   );
+  //   if (result) {
+  //     // print('selected');
+  //   }
+  //   return result['filepath'];
+  // }
+
+  Future<Uint8List> saveImage(Uint8List list) async {
     await [Permission.storage].request();
-    final time = DateTime.now()
-        .toIso8601String()
-        .replaceAll('.', '_')
-        .replaceAll(':', '_');
-    final name = 'screenshot_$time';
-    FilterQuality.high;
-    final result =
-        await ImageGallerySaver.saveImage(bytes, name: name, quality: 100);
-    if (result) {
-      // print('selected');
-    }
-    return result['filepath'];
+    var result = await FlutterImageCompress.compressWithList(
+      list,
+      minHeight: 1920,
+      minWidth: 1080,
+      quality: 96,
+      rotate: 135,
+    );
+    log(list.length.toString());
+    print(result.length);
+    return result;
   }
 
   addNewDialog(context) {

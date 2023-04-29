@@ -51,8 +51,8 @@ const List models = [
   BorderRadius.all(Radius.circular(100)),
 ];
 const List temp = [
-  "assets/images/temp3.png",
   "assets/images/temp2.png",
+  "assets/images/temp3.png",
   "assets/images/temp.png",
   "assets/images/temp8.png",
   "assets/images/temp7.png",

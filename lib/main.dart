@@ -1,3 +1,5 @@
+import 'package:abox/controller/providers/ads_provider.dart';
+import 'package:abox/view/widgets/screehome/mainscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -11,9 +13,16 @@ void main() {
   MobileAds.instance.initialize();
 
   runApp(const MyApp());
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    systemNavigationBarColor: Color.fromARGB(255, 255, 255, 255),
-  ));
+  // SystemChrome.setSystemUIOverlayStyle(
+  //   const SystemUiOverlayStyle(
+  //     statusBarIconBrightness: Brightness.dark,
+  //     systemNavigationBarColor: Colors.white,
+  //     systemNavigationBarIconBrightness: Brightness.dark,
+  //     systemNavigationBarDividerColor: Colors.white,
+  //     statusBarColor: Colors.white,
+  //     statusBarBrightness: Brightness.dark,
+  //   ),
+  // );
 }
 
 class MyApp extends StatelessWidget {
@@ -29,17 +38,25 @@ class MyApp extends StatelessWidget {
         ),
         ListenableProvider(
           create: (context) => EditProvider(),
+        ),
+        ListenableProvider(
+          create: (context) => AdsProvider(),
         )
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+            visualDensity: VisualDensity.adaptivePlatformDensity,
             primarySwatch: Colors.grey,
+            // scaffoldBackgroundColor: Colors.grey[200],
             scaffoldBackgroundColor: Colors.white,
             useMaterial3: true,
-            fontFamily: 'Raleway'),
-        home: const MyHomePage(),
+            appBarTheme: AppBarTheme(
+              backgroundColor: Colors.grey[200],
+            ),
+            fontFamily: 'PlusJakartaSans'),
+        home: const ScreenHome(),
       ),
     );
   }
