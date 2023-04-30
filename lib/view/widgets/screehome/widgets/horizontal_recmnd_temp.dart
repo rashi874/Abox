@@ -18,7 +18,7 @@ class HorizontalRecomendedTemplates extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(5.0),
                 decoration: BoxDecoration(
                   // color: const Color.fromARGB(255, 253, 191, 154),
                   borderRadius: BorderRadius.circular(18),
@@ -29,7 +29,6 @@ class HorizontalRecomendedTemplates extends StatelessWidget {
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 0.5,
-                    color: Color.fromARGB(255, 12, 12, 12),
                   ),
                 ),
               ),
@@ -53,6 +52,7 @@ class HorizontalRecomendedTemplates extends StatelessWidget {
               shrinkWrap: true,
               physics: const ScrollPhysics(),
               scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.all(5),
               itemCount: 5,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(

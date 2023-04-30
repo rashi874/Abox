@@ -84,12 +84,14 @@ class _ScreenHomeState extends State<ScreenHome> {
               children: [
                 SizedBox(
                   width: screenWidth,
-                  height: screenHeight / 2.4
-                  ,
+                  height: screenHeight / 2.6,
                   child: SvgPicture.asset(
                     'assets/images/Vector.svg',
-                    fit: BoxFit.fitHeight,
+                    fit: BoxFit.fill,
                     alignment: Alignment.topCenter,
+                    colorFilter: ColorFilter.mode(
+                        Color.fromARGB(255, 255, 255, 255).withOpacity(0.6),
+                        BlendMode.dstOut),
                   ),
                   // decoration: BoxDecoration(
                   //     image: DecorationImage(
@@ -100,143 +102,88 @@ class _ScreenHomeState extends State<ScreenHome> {
                   top: 60,
                   left: 10,
                   child: SizedBox(
-                    width: 100,
+                    width: screenWidth / 3,
                     child: Row(
                       children: const [
                         Icon(
-                          Icons.vertical_align_top_rounded,
-                          color: Colors.red,
+                          Icons.polymer,
                         ),
                         kboxwidth5,
                         Text(
                           'S-maker',
                           style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
                     ),
                   ),
                 ),
-                const Positioned(
-                  top: 100,
-                  left: 20,
-                  child: SizedBox(
-                    width: 300,
-                    child: Text(
-                      'Upgrade your screenshots. Instantly.',
-                      style: TextStyle(
-                        fontSize: 23,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
+                Positioned(
+                  top: 120,
+                  left: 15,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: screenWidth / 1.5,
+                        child: const Text(
+                          'Upgrade your screenshots. Instantly.',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                const Positioned(
-                  bottom: 100,
-                  left: 20,
-                  child: SizedBox(
-                    width: 250,
-                    child: Text(
-                      'Simply Upload  your image. Edit it with a few clicks, then download the mock-up. There are Free templates available . ',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
+                      kbox10,
+                      SizedBox(
+                        width: screenWidth / 1.8,
+                        child: const Text(
+                          'Simply Upload  your image. Edit it with a few clicks, then download the mock-up. There are Free templates available . ',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
                 Positioned(
                   right: 16,
-                  top: 60,
+                  top: 80,
                   child: Image.asset(
                     'assets/images/phone.png',
-                    height: 170,
+                    height: screenHeight / 5.5,
+                    color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.6),
+                    colorBlendMode: BlendMode.dst,
                   ),
                 ),
               ],
             ),
 
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                kbox20,
-                kbox10,
-                Text(
-                  'Stop sharing boring Screenshots.',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 62, vertical: 5),
-              child: Text(
-                'Instantly Upgrades your screenshots with backgrounds, window frames and subtle shadows with tons of ways to customize and make it your own. For your portfolio, team’s Slack channel, on Dribbble, anywhere!',
-                // maxLines: 4,
-                overflow: TextOverflow.fade,
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+            SizedBox(
+              width: screenWidth / 1.3,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    'Stop sharing boring Screenshots.',
+                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600),
+                  ),
+                  kbox10,
+                  Text(
+                    'Instantly Upgrades your screenshots with backgrounds, window frames and subtle shadows with tons of ways to customize and make it your own. For your portfolio, team’s Slack channel, on Dribbble, anywhere!',
+                    // maxLines: 4,
+                    overflow: TextOverflow.fade,
+                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+                  ),
+                ],
               ),
             ),
 
-            Stack(
-              alignment: AlignmentDirectional.topCenter,
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  height: 320,
-                  child: SvgPicture.asset(
-                    'assets/images/Vectors.svg',
-                    fit: BoxFit.fitHeight,
-                    alignment: Alignment.topCenter,
-                  ),
-                  // decoration: BoxDecoration(
-                  //     image: DecorationImage(
-                  //         image: SvgPicture.asset('assets/images/Vector.svg'),
-                  //         fit: BoxFit.cover)),
-                ),
-                appservices.isBottomBannerAdLoaded
-                    ? Positioned(
-                        bottom: 90,
-                        child: Material(
-                          color: Colors.white.withOpacity(0.6),
-                          borderRadius: BorderRadius.circular(5),
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: SizedBox(
-                              height: appservices.bottomBannerAd?.size.height
-                                  .toDouble(),
-                              width: appservices.bottomBannerAd?.size.width
-                                  .toDouble(),
-                              child: AdWidget(ad: appservices.bottomBannerAd!),
-                            ),
-                          ),
-                        ),
-                      )
-                    : const SizedBox(
-                        // height: 1,
-                        child: Text('Screenshot Maker'),
-                      ),
-                Positioned(
-                    bottom: 20,
-                    right: 16,
-                    child: Card(
-                        child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.arrow_forward_rounded)))),
-                Column(
-                  children: const [
-                    kbox20,
-                    HorizontalRecomendedTemplates(),
-                  ],
-                ),
-              ],
-            ),
-            // const HomeTopSection(),
             // SizedBox(
             //   height: 100,
             //   child: ListView.builder(
@@ -253,6 +200,54 @@ class _ScreenHomeState extends State<ScreenHome> {
             //         );
             //       }),
             // ),
+            const HorizontalRecomendedTemplates(),
+            // Card(
+            //     child: IconButton(
+            //         onPressed: () {},
+            //         icon: const Icon(Icons.arrow_forward_rounded))),
+            Stack(
+              alignment: AlignmentDirectional.topCenter,
+              children: [
+                // decoration: BoxDecoration(
+                //     image: DecorationImage(
+                //         image: SvgPicture.asset('assets/images/Vector.svg'),
+                //         fit: BoxFit.cover)),
+                SizedBox(
+                  width: screenWidth,
+                  height: screenHeight / 5,
+                  child: SvgPicture.asset(
+                    'assets/images/Vectors.svg',
+                    fit: BoxFit.fill,
+                    alignment: Alignment.topCenter,
+                    colorFilter: ColorFilter.mode(
+                        Color.fromARGB(255, 255, 255, 255).withOpacity(0.6),
+                        BlendMode.dstOut),
+                  ),
+                ),
+                appservices.isBottomBannerAdLoaded
+                    ? Material(
+                        color: const Color.fromARGB(255, 158, 103, 252)
+                            .withOpacity(0.6),
+                        borderRadius: BorderRadius.circular(5),
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: SizedBox(
+                            height: appservices.bottomBannerAd?.size.height
+                                .toDouble(),
+                            width: appservices.bottomBannerAd?.size.width
+                                .toDouble(),
+                            child: AdWidget(ad: appservices.bottomBannerAd!),
+                          ),
+                        ),
+                      )
+                    : const SizedBox(
+                        // height: 1,
+                        child: Text('AD'),
+                      ),
+              ],
+            ),
+            // const HomeTopSection(),
+
             // Divider(),
 
             // const WeeklyBanner(),
@@ -261,6 +256,12 @@ class _ScreenHomeState extends State<ScreenHome> {
             // const HorizontalRecomendedTemplates(),
             // kbox20,
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(
+            Icons.arrow_forward_rounded,
+          ),
         ),
       );
     });

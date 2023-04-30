@@ -1,4 +1,5 @@
 import 'package:abox/controller/providers/ads_provider.dart';
+import 'package:abox/view/widgets/screehome/const.dart';
 import 'package:abox/view/widgets/screehome/mainscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -46,18 +47,82 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-            primarySwatch: Colors.grey,
-            // scaffoldBackgroundColor: Colors.grey[200],
-            scaffoldBackgroundColor: Colors.white,
-            useMaterial3: true,
-            appBarTheme: AppBarTheme(
-              backgroundColor: Colors.grey[200],
-            ),
-            fontFamily: 'PlusJakartaSans'),
+        themeMode: ThemeMode.light,
+        theme: ThemeClass.lightTheme,
+        darkTheme: ThemeClass.darkTheme,
+
+        //  ThemeData(
+        //     visualDensity: VisualDensity.adaptivePlatformDensity,
+        //     primarySwatch: Colors.grey,
+
+        //     // scaffoldBackgroundColor: Colors.grey[200],
+        //     scaffoldBackgroundColor: Colors.white,
+        //     useMaterial3: true,
+        //     appBarTheme: AppBarTheme(
+        //       backgroundColor: Colors.grey[200],
+        //     ),
+        //     fontFamily: 'PlusJakartaSans'),
         home: const ScreenHome(),
       ),
     );
   }
+}
+
+class ThemeClass {
+  static ThemeData lightTheme = ThemeData(
+      brightness: Brightness.light,
+      // scaffoldBackgroundColor: Colors.white,
+      cardColor: AppColors().kblue,
+      colorScheme: ColorScheme.light(),
+      fontFamily: 'PlusJakartaSans',
+      useMaterial3: true,
+      primarySwatch: Colors.amber,
+      iconButtonTheme: IconButtonThemeData(
+          style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(AppColors().kblue),
+        foregroundColor: MaterialStatePropertyAll(AppColors().kwhite),
+      )),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: AppColors().kblack.withOpacity(0.8),
+        foregroundColor: AppColors().kwhite,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(AppColors().kblue),
+        foregroundColor: MaterialStatePropertyAll(AppColors().kblue),
+      )),
+      appBarTheme: AppBarTheme(
+        backgroundColor: Colors.blue,
+      ),
+      typography: Typography(black: Typography.blackCupertino));
+
+  static ThemeData darkTheme = ThemeData(
+      brightness: Brightness.dark,
+      // scaffoldBackgroundColor: Colors.black,
+      fontFamily: 'PlusJakartaSans',
+      primarySwatch: Colors.amber,
+      // cardColor: ThemeData.light()
+      //     .copyWith(
+      //       cardColor: AppColors().kblue,
+      //     )
+      //     .cardColor,
+      iconButtonTheme: IconButtonThemeData(
+          style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(AppColors().kblue),
+        foregroundColor: MaterialStatePropertyAll(AppColors().kblue),
+      )),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(AppColors().kblue),
+        foregroundColor: MaterialStatePropertyAll(AppColors().kblue),
+      )),
+      useMaterial3: true,
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: AppColors().kwhite.withOpacity(0.8),
+        foregroundColor: AppColors().kblue,
+      ),
+      colorScheme: ColorScheme.dark(),
+      appBarTheme: AppBarTheme(
+        backgroundColor: Colors.black,
+      ));
 }

@@ -134,3 +134,9 @@ const kboxwidth10 = SizedBox(
 const kboxwidth5 = SizedBox(
   width: 5,
 );
+
+class AppColors {
+  Color kblue = Color(0xff1D4ED8);
+  Color kwhite = Colors.white;
+  Color kblack = Colors.black;
+}
