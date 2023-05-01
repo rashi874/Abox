@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:abox/view/widgets/screehome/const.dart';
+import 'package:abox/const.dart';
 
 class WeeklyBanner extends StatelessWidget {
   const WeeklyBanner({super.key});

@@ -1,5 +1,5 @@
 import 'package:abox/controller/providers/ads_provider.dart';
-import 'package:abox/view/widgets/screehome/const.dart';
+import 'package:abox/const.dart';
 import 'package:abox/view/widgets/screehome/mainscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -70,34 +70,41 @@ class MyApp extends StatelessWidget {
 
 class ThemeClass {
   static ThemeData lightTheme = ThemeData(
-      brightness: Brightness.light,
-      // scaffoldBackgroundColor: Colors.white,
-      cardColor: AppColors().kblue,
-      colorScheme: ColorScheme.light(),
-      fontFamily: 'PlusJakartaSans',
-      useMaterial3: true,
-      primarySwatch: Colors.amber,
-      iconButtonTheme: IconButtonThemeData(
-          style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(AppColors().kblue),
-        foregroundColor: MaterialStatePropertyAll(AppColors().kwhite),
-      )),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: AppColors().kblack.withOpacity(0.8),
-        foregroundColor: AppColors().kwhite,
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(AppColors().kblue),
-        foregroundColor: MaterialStatePropertyAll(AppColors().kblue),
-      )),
-      appBarTheme: AppBarTheme(
-        backgroundColor: Colors.blue,
-      ),
-      typography: Typography(black: Typography.blackCupertino));
+    brightness: Brightness.light,
+    // scaffoldBackgroundColor: Colors.white,
+    cardColor: AppColors().kblue,
+    colorScheme: ColorScheme.light(),
+    tabBarTheme: TabBarTheme(
+        overlayColor: MaterialStatePropertyAll(ColorScheme.light().background),
+        indicatorColor: AppColors().kblue,
+        labelColor: AppColors().kblue,
+        dividerColor: AppColors().kwhite),
+    fontFamily: 'PlusJakartaSans',
+    bottomAppBarTheme: BottomAppBarTheme(color: AppColors().kblue),
+    useMaterial3: true,
+    primarySwatch: Colors.amber,
+    iconButtonTheme: IconButtonThemeData(
+        style: ButtonStyle(
+      // backgroundColor: MaterialStatePropertyAll(AppColors().kblue),
+      foregroundColor: MaterialStatePropertyAll(AppColors().kblack),
+    )),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: AppColors().kblack.withOpacity(0.8),
+      foregroundColor: AppColors().kwhite,
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+      backgroundColor: MaterialStatePropertyAll(AppColors().kblue),
+      foregroundColor: MaterialStatePropertyAll(AppColors().kblue),
+    )),
+    appBarTheme: AppBarTheme(
+        // backgroundColor: AppColors().kblue,
+        ),
+  );
 
   static ThemeData darkTheme = ThemeData(
       brightness: Brightness.dark,
+      textTheme: TextTheme(),
       // scaffoldBackgroundColor: Colors.black,
       fontFamily: 'PlusJakartaSans',
       primarySwatch: Colors.amber,
@@ -108,8 +115,8 @@ class ThemeClass {
       //     .cardColor,
       iconButtonTheme: IconButtonThemeData(
           style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(AppColors().kblue),
-        foregroundColor: MaterialStatePropertyAll(AppColors().kblue),
+        // backgroundColor: MaterialStatePropertyAll(AppColors().kblue),
+        foregroundColor: MaterialStatePropertyAll(AppColors().kwhite),
       )),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
@@ -117,12 +124,19 @@ class ThemeClass {
         foregroundColor: MaterialStatePropertyAll(AppColors().kblue),
       )),
       useMaterial3: true,
+      tabBarTheme: TabBarTheme(
+          overlayColor: MaterialStatePropertyAll(
+            AppColors().kblue.withOpacity(0.0),
+          ),
+          indicatorColor: AppColors().kblue,
+          labelColor: AppColors().kblue,
+          dividerColor: AppColors().kwhite),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: AppColors().kwhite.withOpacity(0.8),
-        foregroundColor: AppColors().kblue,
+        foregroundColor: AppColors().kblack,
       ),
       colorScheme: ColorScheme.dark(),
       appBarTheme: AppBarTheme(
-        backgroundColor: Colors.black,
-      ));
+          // backgroundColor: Colors.black,
+          ));
 }

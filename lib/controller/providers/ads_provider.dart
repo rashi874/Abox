@@ -7,20 +7,22 @@ class AdsProvider with ChangeNotifier {
   BannerAd? bottomBannerAd;
   bool isBottomBannerAdLoaded = false;
   bool isinlineBannerAdAdLoaded = false;
+  bool isinlineBannerAdAdLoaded1 = false;
+  BannerAd? inlineBannerAd1;
   BannerAd? inlineBannerAd;
 
   void createInlineBannerAd(context) async {
     final AnchoredAdaptiveBannerAdSize? size =
         await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
             MediaQuery.of(context).size.width.truncate());
-    inlineBannerAd = BannerAd(
+    inlineBannerAd1 = BannerAd(
       size: size!,
       // size: AdSize.mediumRectangle,
-      adUnitId: AdHelper.bannerAdUnitId2,
+      adUnitId: AdHelper.bannerAdUnitId,
       request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (_) {
-          isinlineBannerAdAdLoaded = true;
+          isinlineBannerAdAdLoaded1 = true;
           notifyListeners();
         },
         onAdFailedToLoad: (ad, error) {

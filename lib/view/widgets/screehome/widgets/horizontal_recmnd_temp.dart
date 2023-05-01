@@ -1,7 +1,6 @@
-import 'package:abox/view/widgets/horizontal_view/horizontal_temp.dart';
 import 'package:abox/view/widgets/horizontal_view/widget/horizontal_edit.dart';
 import 'package:flutter/material.dart';
-import 'package:abox/view/widgets/screehome/const.dart';
+import 'package:abox/const.dart';
 
 class HorizontalRecomendedTemplates extends StatelessWidget {
   const HorizontalRecomendedTemplates({
@@ -26,7 +25,7 @@ class HorizontalRecomendedTemplates extends StatelessWidget {
                 child: const Text(
                   'Horizontal Templates',
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 0.5,
                   ),
@@ -52,7 +51,7 @@ class HorizontalRecomendedTemplates extends StatelessWidget {
               shrinkWrap: true,
               physics: const ScrollPhysics(),
               scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               itemCount: 5,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
@@ -74,7 +73,7 @@ class HorizontalRecomendedTemplates extends StatelessWidget {
                       // height: 150,
                       width: 220,
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.6),
+                        // color: AppColors().kwhite.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
                           color: colors[2],
@@ -117,7 +116,7 @@ class HorizontalRecomendedTemplates extends StatelessWidget {
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                     letterSpacing: 0.2,
-                                    color: Color.fromARGB(255, 9, 8, 8),
+                                    // color: Color.fromARGB(255, 9, 8, 8),
                                   ),
                                 ),
                                 kbox2,
@@ -128,7 +127,7 @@ class HorizontalRecomendedTemplates extends StatelessWidget {
                                       style: TextStyle(
                                         fontSize: 11,
                                         fontWeight: FontWeight.w400,
-                                        color: Color.fromARGB(255, 0, 0, 0),
+                                        // color: Color.fromARGB(255, 0, 0, 0),
                                       ),
                                       textAlign: TextAlign.start,
                                     ),
@@ -146,7 +145,7 @@ class HorizontalRecomendedTemplates extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 8,
                                     fontWeight: FontWeight.w400,
-                                    color: Color.fromARGB(255, 112, 112, 112),
+                                    // color: Color.fromARGB(255, 112, 112, 112),
                                   ),
                                   textAlign: TextAlign.start,
                                 ),

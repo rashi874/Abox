@@ -1,13 +1,15 @@
 import 'package:abox/controller/providers/ads_provider.dart';
 import 'package:abox/controller/providers/edit_provider.dart';
+import 'package:abox/open_ad.dart';
 import 'package:abox/view/widgets/screehome/widgets/horizontal_recmnd_temp.dart';
+import 'package:abox/view/widgets/tabscreen/tab_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:abox/view/widgets/screehome/widgets/weekly_banner.dart';
-import 'package:abox/view/widgets/screehome/const.dart';
-import 'package:abox/view/widgets/screehome/widgets/recomende_temp.dart';
+import 'package:abox/const.dart';
+import 'package:abox/view/widgets/screehome/widgets/verticle_rec_temp.dart';
 import 'package:provider/provider.dart';
 
 class ScreenHome extends StatefulWidget {
@@ -30,9 +32,13 @@ class _ScreenHomeState extends State<ScreenHome> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.top]);
     final prov = Provider.of<AdsProvider>(context, listen: false);
+    // late AppLifecycleReactor _appLifecycleReactor;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       AdsProvider().bottomBannerAd?.dispose();
       prov.createBottomBannerAd(context);
+      // AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
+      // _appLifecycleReactor =
+      //     AppLifecycleReactor(appOpenAdManager: appOpenAdManager);
 
       // @override
       // void initState() {
@@ -84,13 +90,14 @@ class _ScreenHomeState extends State<ScreenHome> {
               children: [
                 SizedBox(
                   width: screenWidth,
-                  height: screenHeight / 2.6,
+                  height: screenHeight / 2.7,
                   child: SvgPicture.asset(
                     'assets/images/Vector.svg',
                     fit: BoxFit.fill,
                     alignment: Alignment.topCenter,
                     colorFilter: ColorFilter.mode(
-                        Color.fromARGB(255, 255, 255, 255).withOpacity(0.6),
+                        const Color.fromARGB(255, 255, 255, 255)
+                            .withOpacity(0.6),
                         BlendMode.dstOut),
                   ),
                   // decoration: BoxDecoration(
@@ -131,8 +138,8 @@ class _ScreenHomeState extends State<ScreenHome> {
                         child: const Text(
                           'Upgrade your screenshots. Instantly.',
                           style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w800,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
@@ -156,33 +163,33 @@ class _ScreenHomeState extends State<ScreenHome> {
                   child: Image.asset(
                     'assets/images/phone.png',
                     height: screenHeight / 5.5,
-                    color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.6),
+                    color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.6),
                     colorBlendMode: BlendMode.dst,
                   ),
                 ),
               ],
             ),
 
-            SizedBox(
-              width: screenWidth / 1.3,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    'Stop sharing boring Screenshots.',
-                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600),
-                  ),
-                  kbox10,
-                  Text(
-                    'Instantly Upgrades your screenshots with backgrounds, window frames and subtle shadows with tons of ways to customize and make it your own. For your portfolio, team’s Slack channel, on Dribbble, anywhere!',
-                    // maxLines: 4,
-                    overflow: TextOverflow.fade,
-                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-            ),
+            // SizedBox(
+            //   width: screenWidth / 1.1,
+            //   child: Column(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: const [
+            //       Text(
+            //         'Stop sharing boring Screenshots.',
+            //         style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600),
+            //       ),
+            //       kbox10,
+            //       Text(
+            //         'Instantly Upgrades your screenshots with backgrounds, window frames and subtle shadows with tons of ways to customize and make it your own. For your portfolio, team’s Slack channel, on Dribbble, anywhere!',
+            //         // maxLines: 4,
+            //         overflow: TextOverflow.fade,
+            //         style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+            //       ),
+            //     ],
+            //   ),
+            // ),
 
             // SizedBox(
             //   height: 100,
@@ -201,6 +208,7 @@ class _ScreenHomeState extends State<ScreenHome> {
             //       }),
             // ),
             const HorizontalRecomendedTemplates(),
+            const VerticleRecTemplates(),
             // Card(
             //     child: IconButton(
             //         onPressed: () {},
@@ -220,14 +228,14 @@ class _ScreenHomeState extends State<ScreenHome> {
                     fit: BoxFit.fill,
                     alignment: Alignment.topCenter,
                     colorFilter: ColorFilter.mode(
-                        Color.fromARGB(255, 255, 255, 255).withOpacity(0.6),
+                        const Color.fromARGB(255, 255, 255, 255)
+                            .withOpacity(0.6),
                         BlendMode.dstOut),
                   ),
                 ),
                 appservices.isBottomBannerAdLoaded
                     ? Material(
-                        color: const Color.fromARGB(255, 158, 103, 252)
-                            .withOpacity(0.6),
+                        color: AppColors().kblue.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(5),
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
@@ -251,15 +259,19 @@ class _ScreenHomeState extends State<ScreenHome> {
             // Divider(),
 
             // const WeeklyBanner(),
-            // const RecomendedTemplates(),
 
             // const HorizontalRecomendedTemplates(),
             // kbox20,
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: Icon(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Tabscreen()),
+            );
+          },
+          child: const Icon(
             Icons.arrow_forward_rounded,
           ),
         ),

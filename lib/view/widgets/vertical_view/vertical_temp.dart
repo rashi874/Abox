@@ -2,7 +2,8 @@ import 'package:abox/controller/providers/ads_provider.dart';
 import 'package:abox/controller/providers/edit_provider.dart';
 import 'package:abox/view/widgets/vertical_view/verticle_editing.dart';
 import 'package:flutter/material.dart';
-import 'package:abox/view/widgets/screehome/const.dart';
+import 'package:abox/const.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
@@ -19,18 +20,18 @@ class _VerticleTemplatesState extends State<VerticleTemplates> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text(
-          'Verticle templates',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 0.5,
-            color: Color.fromARGB(255, 12, 12, 12),
-          ),
-        ),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.white,
+      //   title: const Text(
+      //     'Verticle templates',
+      //     style: TextStyle(
+      //       fontSize: 16,
+      //       fontWeight: FontWeight.bold,
+      //       letterSpacing: 0.5,
+      //       color: Color.fromARGB(255, 12, 12, 12),
+      //     ),
+      //   ),
+      // ),
       body: ListView(
         children: [
           ListView.separated(
@@ -77,9 +78,9 @@ class _VerticleTemplatesState extends State<VerticleTemplates> {
                                   text('Iphone 13 pro')[index],
                                   style: const TextStyle(
                                     fontSize: 15,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w500,
                                     letterSpacing: 0.2,
-                                    color: Color.fromARGB(255, 9, 8, 8),
+                                    // color: Color.fromARGB(255, 9, 8, 8),
                                   ),
                                 ),
                                 kbox2,
@@ -90,7 +91,7 @@ class _VerticleTemplatesState extends State<VerticleTemplates> {
                                       style: TextStyle(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w400,
-                                        color: Color.fromARGB(255, 68, 68, 68),
+                                        // color: Color.fromARGB(255, 68, 68, 68),
                                       ),
                                       textAlign: TextAlign.start,
                                     ),
@@ -108,7 +109,7 @@ class _VerticleTemplatesState extends State<VerticleTemplates> {
                                   style: TextStyle(
                                     fontSize: 8,
                                     fontWeight: FontWeight.w400,
-                                    color: Color.fromARGB(255, 112, 112, 112),
+                                    // color: Color.fromARGB(255, 112, 112, 112),
                                   ),
                                   textAlign: TextAlign.start,
                                 ),
@@ -183,14 +184,14 @@ class _InlineAdState extends State<InlineAd> {
   Widget build(BuildContext context) {
     final prov = Provider.of<AdsProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      prov.createInlineBannerAd3(context);
+      prov.createInlineBannerAd(context);
     });
     return Consumer<AdsProvider>(builder: (context, appservices, _) {
       return appservices.isinlineBannerAdAdLoaded
           ? SizedBox(
-              width: appservices.inlineBannerAd?.size.width.toDouble(),
-              height: appservices.inlineBannerAd?.size.height.toDouble(),
-              child: AdWidget(ad: appservices.inlineBannerAd!),
+              width: appservices.inlineBannerAd1?.size.width.toDouble(),
+              height: appservices.inlineBannerAd1?.size.height.toDouble(),
+              child: AdWidget(ad: appservices.inlineBannerAd1!),
             )
           : const SizedBox();
     });
@@ -200,6 +201,6 @@ class _InlineAdState extends State<InlineAd> {
   void dispose() {
     super.dispose();
 
-    AdsProvider().inlineBannerAd?.dispose();
+    AdsProvider().inlineBannerAd1?.dispose();
   }
 }

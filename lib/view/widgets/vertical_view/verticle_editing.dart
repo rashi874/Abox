@@ -1,16 +1,15 @@
 import 'package:abox/View/screens/widgets/image_text.dart';
+import 'package:abox/const.dart';
 import 'package:abox/controller/providers/ads_provider.dart';
 import 'package:abox/controller/providers/edit_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:abox/View/widgets/screehome/const.dart';
+
 
 // ignore: must_be_immutable
 class VerticleEditing extends StatelessWidget {
-  String? appbartitle, image, mock;
-  Color? bgscolor;
   VerticleEditing({
     super.key,
     required this.bgscolor,
@@ -19,6 +18,8 @@ class VerticleEditing extends StatelessWidget {
     required this.mock,
   });
 
+  String? appbartitle, image, mock;
+  Color? bgscolor;
   @override
   Widget build(BuildContext context) {
     Provider.of<EditProvider>(context, listen: false).coler(bgscolor);
@@ -32,8 +33,6 @@ class VerticleEditing extends StatelessWidget {
         builder: (context, appservices, adsservices, _) {
       return Scaffold(
           appBar: AppBar(
-            backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-            surfaceTintColor: const Color.fromARGB(255, 255, 255, 255),
             title: Text(
               appbartitle!,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -55,7 +54,7 @@ class VerticleEditing extends StatelessWidget {
                       )
                     : const SizedBox(
                         // height: 1,
-                        child: Text('Screenshot Maker'),
+                        child: Text('AD'),
                       ),
                 Center(
                   child: Screenshot(

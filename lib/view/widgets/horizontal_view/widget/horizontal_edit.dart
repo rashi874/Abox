@@ -1,3 +1,4 @@
+import 'package:abox/const.dart';
 import 'package:abox/controller/providers/ads_provider.dart';
 import 'package:abox/controller/providers/edit_provider.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,6 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:abox/View/screens/widgets/image_text.dart';
-import 'package:abox/View/widgets/screehome/const.dart';
 
 // ignore: must_be_immutable
 class HorizontalEditing extends StatelessWidget {
@@ -31,11 +31,9 @@ class HorizontalEditing extends StatelessWidget {
       prov.createBottomBannerAd(context);
       prov.loadRewardedAd();
     });
-
     return Consumer2<EditProvider, AdsProvider>(
         builder: (context, appservices, adsservices, _) {
       return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         appBar: AppBar(
           title: Text(
             appbartitle!,
@@ -53,7 +51,7 @@ class HorizontalEditing extends StatelessWidget {
                   )
                 : const SizedBox(
                     // height: 1,
-                    child: Text('Screenshot Maker'),
+                    child: Text('AD'),
                   ),
             Center(
               child: Screenshot(
