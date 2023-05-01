@@ -25,10 +25,12 @@ class HorizontalEditing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     Provider.of<EditProvider>(context, listen: false).coler(color);
     final prov = Provider.of<AdsProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      prov.createBottomBannerAd(context);
+      prov.createInlineBannerAd3(context);
       prov.loadRewardedAd();
     });
     return Consumer2<EditProvider, AdsProvider>(
@@ -43,12 +45,20 @@ class HorizontalEditing extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            adsservices.isBottomBannerAdLoaded
-                ? SizedBox(
-                    height: adsservices.bottomBannerAd?.size.height.toDouble(),
-                    width: adsservices.bottomBannerAd?.size.width.toDouble(),
-                    child: AdWidget(ad: adsservices.bottomBannerAd!),
-                  )
+            adsservices.isinlineBannerAdAdLoaded
+                ? Material(
+                    color: AppColors().kblue.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(5),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: SizedBox(
+                        height:
+                            adsservices.bottomBannerAd?.size.height.toDouble(),
+                        width:
+                            adsservices.bottomBannerAd?.size.width.toDouble(),
+                        child: AdWidget(ad: adsservices.inlineBannerAd!),
+                      ),
+                    ))
                 : const SizedBox(
                     // height: 1,
                     child: Text('AD'),
@@ -57,7 +67,8 @@ class HorizontalEditing extends StatelessWidget {
               child: Screenshot(
                 controller: appservices.screenshotController,
                 child: Container(
-                  width: double.infinity,
+                  width: screenWidth,
+                  height: screenHeight / 4.2,
                   decoration: BoxDecoration(
                     color: appservices.bgcolor,
                     // borderRadius: BorderRadius.circular(8),
@@ -211,12 +222,13 @@ class HorizontalEditing extends StatelessWidget {
                                 bottom: 0,
                                 child: Text(
                                   appservices.creatorText.text,
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black.withOpacity(
-                                        0.3,
-                                      )),
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    // color: Colors.black.withOpacity(
+                                    //   0.3,
+                                    // ),
+                                  ),
                                 ),
                               )
                             : const SizedBox.shrink(),
@@ -228,6 +240,7 @@ class HorizontalEditing extends StatelessWidget {
             Column(
               children: [
                 Container(
+                  margin: const EdgeInsets.all(5),
                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
@@ -235,23 +248,11 @@ class HorizontalEditing extends StatelessWidget {
                   ),
                   child: IconButton(
                     onPressed: () => appservices.addNewDialog(context),
-                    //     minLines: 2,
-                    //     maxLines: 2,
-                    //     style: TextStyle(
-                    //       fontSize: 15,
-                    //       fontWeight: FontWeight.w500,
-                    //       color: textcolor,
-                    //     ),,
                     icon: const Icon(
                       Icons.text_fields_rounded,
-                      color: Colors.black,
                     ),
                   ),
                 ),
-                const Divider(
-                  color: Color.fromARGB(255, 218, 218, 218),
-                ),
-                // image upload in device
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -264,7 +265,6 @@ class HorizontalEditing extends StatelessWidget {
                         onPressed: () => appservices.uploadImage(),
                         icon: const Icon(
                           Icons.add_photo_alternate_rounded,
-                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -278,17 +278,14 @@ class HorizontalEditing extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // const Text('Background'),
                           IconButton(
                             onPressed: () {
-                              // appservices.builColorPicker(color);
                               appservices.pickColor(
                                 context,
                               );
                             },
                             icon: const Icon(
                               Icons.format_color_fill_rounded,
-                              color: Colors.black,
                             ),
                           ),
                           Container(
@@ -309,14 +306,12 @@ class HorizontalEditing extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // const Text('Text color'),
                           IconButton(
                             onPressed: () {
                               appservices.textpickColor(context);
                             },
                             icon: const Icon(
                               Icons.format_color_text_rounded,
-                              color: Colors.black,
                             ),
                           ),
                           Container(
@@ -338,10 +333,8 @@ class HorizontalEditing extends StatelessWidget {
                           IconButton(
                             icon: const Icon(
                               Icons.downloading_rounded,
-                              color: Colors.black,
                             ),
                             onPressed: () {
-                              // saveToGallery(context);
                               adsservices.rewardedAd?.show(
                                 onUserEarnedReward: (_, reward) {},
                               );
@@ -349,15 +342,10 @@ class HorizontalEditing extends StatelessWidget {
                                   .capture(
                                       delay: const Duration(milliseconds: 0))
                                   .then((capturedImage) async {
-                                // appservices.saveImage(capturedImage!);
                                 appservices.saveImage(capturedImage!);
                                 appservices.showToast(" image saved");
-                              }).catchError((onError) {
-                                // print(onError);
-                              });
+                              }).catchError((onError) {});
                             },
-
-                            //  saveToGallery(context),,
                             tooltip: 'Save Image',
                           ),
                         ],
@@ -365,7 +353,6 @@ class HorizontalEditing extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
@@ -376,7 +363,6 @@ class HorizontalEditing extends StatelessWidget {
                         IconButton(
                           icon: const Icon(
                             Icons.add,
-                            color: Colors.black,
                           ),
                           onPressed: appservices.increaseFontSize,
                           tooltip: 'Increase font size',
@@ -384,7 +370,6 @@ class HorizontalEditing extends StatelessWidget {
                         IconButton(
                           icon: const Icon(
                             Icons.remove,
-                            color: Colors.black,
                           ),
                           onPressed: appservices.decreaseFontSize,
                           tooltip: 'Decrease font size',
@@ -392,7 +377,6 @@ class HorizontalEditing extends StatelessWidget {
                         IconButton(
                           icon: const Icon(
                             Icons.format_align_left,
-                            color: Colors.black,
                           ),
                           onPressed: appservices.alignLeft,
                           tooltip: 'Align left',
@@ -400,7 +384,6 @@ class HorizontalEditing extends StatelessWidget {
                         IconButton(
                           icon: const Icon(
                             Icons.format_align_center,
-                            color: Colors.black,
                           ),
                           onPressed: appservices.alignCenter,
                           tooltip: 'Align Center',
@@ -408,7 +391,6 @@ class HorizontalEditing extends StatelessWidget {
                         IconButton(
                           icon: const Icon(
                             Icons.format_align_right,
-                            color: Colors.black,
                           ),
                           onPressed: appservices.alignRight,
                           tooltip: 'Align Right',
@@ -416,7 +398,6 @@ class HorizontalEditing extends StatelessWidget {
                         IconButton(
                           icon: const Icon(
                             Icons.format_bold,
-                            color: Colors.black,
                           ),
                           onPressed: appservices.boldText,
                           tooltip: 'Bold',
@@ -424,142 +405,23 @@ class HorizontalEditing extends StatelessWidget {
                         IconButton(
                           icon: const Icon(
                             Icons.format_italic,
-                            color: Colors.black,
                           ),
                           onPressed: appservices.italicText,
                           tooltip: 'Italic',
                         ),
-
                         IconButton(
                           icon: const Icon(
                             Icons.space_bar,
-                            color: Colors.black,
                           ),
                           onPressed: appservices.addLinesToText,
                           tooltip: 'Add New Line',
                         ),
-                        // Tooltip(
-                        //   message: 'Red',
-                        //   child: GestureDetector(
-                        //       onTap: () => changeTextColor(Colors.red),
-                        //       child: const CircleAvatar(
-                        //         backgroundColor: Colors.red,
-                        //       )),
-                        // ),
-                        // const SizedBox(
-                        //   width: 5,
-                        // ),
-                        // Tooltip(
-                        //   message: 'White',
-                        //   child: GestureDetector(
-                        //       onTap: () => changeTextColor(Colors.white),
-                        //       child: const CircleAvatar(
-                        //         backgroundColor: Colors.white,
-                        //       )),
-                        // ),
-                        // const SizedBox(
-                        //   width: 5,
-                        // ),
-                        // Tooltip(
-                        //   message: 'Black',
-                        //   child: GestureDetector(
-                        //       onTap: () => changeTextColor(Colors.black),
-                        //       child: const CircleAvatar(
-                        //         backgroundColor: Colors.black,
-                        //       )),
-                        // ),
-                        // const SizedBox(
-                        //   width: 5,
-                        // ),
-                        // Tooltip(
-                        //   message: 'Blue',
-                        //   child: GestureDetector(
-                        //       onTap: () => changeTextColor(Colors.blue),
-                        //       child: const CircleAvatar(
-                        //         backgroundColor: Colors.blue,
-                        //       )),
-                        // ),
-                        // const SizedBox(
-                        //   width: 5,
-                        // ),
-                        // Tooltip(
-                        //   message: 'Yellow',
-                        //   child: GestureDetector(
-                        //       onTap: () => changeTextColor(Colors.yellow),
-                        //       child: const CircleAvatar(
-                        //         backgroundColor: Colors.yellow,
-                        //       )),
-                        // ),
-                        // const SizedBox(
-                        //   width: 5,
-                        // ),
-                        // Tooltip(
-                        //   message: 'Green',
-                        //   child: GestureDetector(
-                        //       onTap: () => changeTextColor(Colors.green),
-                        //       child: const CircleAvatar(
-                        //         backgroundColor: Colors.green,
-                        //       )),
-                        // ),
-                        // const SizedBox(
-                        //   width: 5,
-                        // ),
-                        // Tooltip(
-                        //   message: 'Orange',
-                        //   child: GestureDetector(
-                        //       onTap: () => changeTextColor(Colors.orange),
-                        //       child: const CircleAvatar(
-                        //         backgroundColor: Colors.orange,
-                        //       )),
-                        // ),
-                        // const SizedBox(
-                        //   width: 5,
-                        // ),
-                        // Tooltip(
-                        //   message: 'Pink',
-                        //   child: GestureDetector(
-                        //       onTap: () => changeTextColor(Colors.pink),
-                        //       child: const CircleAvatar(
-                        //         backgroundColor: Colors.pink,
-                        //       )),
-                        // ),
-                        // const SizedBox(
-                        //   width: 5,
-                        // ),
                       ],
                     ),
                   ),
                 ),
               ],
             ),
-            // ElevatedButton(
-            //   onPressed: () {
-            //     screenshotController
-            //         .capture(delay: const Duration(milliseconds: 0))
-            //         .then((capturedImage) async {
-            //       saveImage(capturedImage!);
-            //       showToast(" image saved");
-            //     }).catchError((onError) {
-            //       // print(onError);
-            //     });
-            //     // print(screenshotController);
-            //     // print(saveImage);
-            //   },
-            //   style: ElevatedButton.styleFrom(
-            //     backgroundColor:
-            //         const Color.fromARGB(229, 140, 247, 165).withOpacity(0.6),
-            //     elevation: 0,
-            //     shape: const StadiumBorder(),
-            //     padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-            //   ),
-            //   child: const Text(
-            //     'Save',
-            //     style: TextStyle(
-            //         fontSize: 15,
-            //         fontWeight: FontWeight.bold,
-            //         color: Color.fromARGB(255, 10, 10, 10)),
-            //   ),
-            // ),
           ],
         ),
       );

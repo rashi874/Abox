@@ -19,7 +19,6 @@ class HorizontalRecomendedTemplates extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(5.0),
                 decoration: BoxDecoration(
-                  // color: const Color.fromARGB(255, 253, 191, 154),
                   borderRadius: BorderRadius.circular(18),
                 ),
                 child: const Text(
@@ -31,17 +30,6 @@ class HorizontalRecomendedTemplates extends StatelessWidget {
                   ),
                 ),
               ),
-              // IconButton(
-              //     icon: const Icon(
-              //       Icons.arrow_forward_sharp,
-              //       size: 20,
-              //     ),
-              //     onPressed: () => Navigator.push(
-              //           context,
-              //           MaterialPageRoute(
-              //             builder: (context) => const NewModel(),
-              //           ),
-              //         )),
             ],
           ),
         ),
@@ -61,7 +49,6 @@ class HorizontalRecomendedTemplates extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => HorizontalEditing(
-                                    // bgscolor: colors[index],
                                     color: colors[index],
                                     image: homeshot,
                                     appbartitle: text('Iphone 13 pro')[index],
@@ -69,11 +56,8 @@ class HorizontalRecomendedTemplates extends StatelessWidget {
                                   )),
                         )),
                     child: Container(
-                      // padding: const EdgeInsets.all(10.0),
-                      // height: 150,
                       width: 220,
                       decoration: BoxDecoration(
-                        // color: AppColors().kwhite.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
                           color: colors[2],
@@ -116,7 +100,6 @@ class HorizontalRecomendedTemplates extends StatelessWidget {
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                     letterSpacing: 0.2,
-                                    // color: Color.fromARGB(255, 9, 8, 8),
                                   ),
                                 ),
                                 kbox2,
@@ -127,7 +110,6 @@ class HorizontalRecomendedTemplates extends StatelessWidget {
                                       style: TextStyle(
                                         fontSize: 11,
                                         fontWeight: FontWeight.w400,
-                                        // color: Color.fromARGB(255, 0, 0, 0),
                                       ),
                                       textAlign: TextAlign.start,
                                     ),
@@ -145,7 +127,6 @@ class HorizontalRecomendedTemplates extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 8,
                                     fontWeight: FontWeight.w400,
-                                    // color: Color.fromARGB(255, 112, 112, 112),
                                   ),
                                   textAlign: TextAlign.start,
                                 ),

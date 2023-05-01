@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:abox/ad_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -17,7 +19,7 @@ class AdsProvider with ChangeNotifier {
             MediaQuery.of(context).size.width.truncate());
     inlineBannerAd1 = BannerAd(
       size: size!,
-      // size: AdSize.mediumRectangle,
+      // size: AdSize.banner,
       adUnitId: AdHelper.bannerAdUnitId,
       request: const AdRequest(),
       listener: BannerAdListener(
@@ -30,17 +32,17 @@ class AdsProvider with ChangeNotifier {
         },
       ),
     );
-    inlineBannerAd?.load();
+    inlineBannerAd1?.load();
     notifyListeners();
   }
 
   void createInlineBannerAd3(context) async {
-    final AnchoredAdaptiveBannerAdSize? size =
-        await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
-            MediaQuery.of(context).size.width.truncate());
+    // final AnchoredAdaptiveBannerAdSize? size =
+    //     await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+    //         MediaQuery.of(context).size.width.truncate());
     inlineBannerAd = BannerAd(
       // size: size!,
-      size: AdSize.mediumRectangle,
+      size: AdSize.banner,
       adUnitId: AdHelper.bannerAdUnitId2,
       request: const AdRequest(),
       listener: BannerAdListener(
@@ -58,9 +60,9 @@ class AdsProvider with ChangeNotifier {
   }
 
   void createBottomBannerAd(context) async {
-    final AnchoredAdaptiveBannerAdSize? size =
-        await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
-            MediaQuery.of(context).size.width.truncate());
+    // final AnchoredAdaptiveBannerAdSize? size =
+    //     await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+    //         MediaQuery.of(context).size.width.truncate());
 
     bottomBannerAd = BannerAd(
       adUnitId: AdHelper.bannerAdUnitId,
@@ -102,7 +104,7 @@ class AdsProvider with ChangeNotifier {
           notifyListeners();
         },
         onAdFailedToLoad: (err) {
-          print('Failed to load a rewarded ad: ${err.message}');
+          log('Failed to load a rewarded ad: ${err.message}');
         },
       ),
     );

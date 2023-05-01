@@ -1,9 +1,7 @@
 import 'package:abox/controller/providers/ads_provider.dart';
-import 'package:abox/controller/providers/edit_provider.dart';
 import 'package:abox/view/widgets/vertical_view/verticle_editing.dart';
 import 'package:flutter/material.dart';
 import 'package:abox/const.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
@@ -20,24 +18,11 @@ class _VerticleTemplatesState extends State<VerticleTemplates> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.white,
-      //   title: const Text(
-      //     'Verticle templates',
-      //     style: TextStyle(
-      //       fontSize: 16,
-      //       fontWeight: FontWeight.bold,
-      //       letterSpacing: 0.5,
-      //       color: Color.fromARGB(255, 12, 12, 12),
-      //     ),
-      //   ),
-      // ),
       body: ListView(
         children: [
           ListView.separated(
               shrinkWrap: true,
               physics: const ScrollPhysics(),
-              // scrollDirection: Axis.horizontal,
               itemCount: 5,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
@@ -56,7 +41,6 @@ class _VerticleTemplatesState extends State<VerticleTemplates> {
                     child: Container(
                       padding: const EdgeInsets.all(10.0),
                       height: 100,
-                      // width: 300,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
@@ -80,7 +64,6 @@ class _VerticleTemplatesState extends State<VerticleTemplates> {
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500,
                                     letterSpacing: 0.2,
-                                    // color: Color.fromARGB(255, 9, 8, 8),
                                   ),
                                 ),
                                 kbox2,
@@ -91,7 +74,6 @@ class _VerticleTemplatesState extends State<VerticleTemplates> {
                                       style: TextStyle(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w400,
-                                        // color: Color.fromARGB(255, 68, 68, 68),
                                       ),
                                       textAlign: TextAlign.start,
                                     ),
@@ -109,7 +91,6 @@ class _VerticleTemplatesState extends State<VerticleTemplates> {
                                   style: TextStyle(
                                     fontSize: 8,
                                     fontWeight: FontWeight.w400,
-                                    // color: Color.fromARGB(255, 112, 112, 112),
                                   ),
                                   textAlign: TextAlign.start,
                                 ),
@@ -159,7 +140,10 @@ class _VerticleTemplatesState extends State<VerticleTemplates> {
               },
               separatorBuilder: (BuildContext context, int index) {
                 return ((index + 1) % 3 == 0)
-                    ? const InlineAd()
+                    ? Container(
+                        height: 1,
+                      )
+                    // InlineAd()
                     : Container(
                         height: 1,
                       );
@@ -187,12 +171,18 @@ class _InlineAdState extends State<InlineAd> {
       prov.createInlineBannerAd(context);
     });
     return Consumer<AdsProvider>(builder: (context, appservices, _) {
-      return appservices.isinlineBannerAdAdLoaded
-          ? SizedBox(
-              width: appservices.inlineBannerAd1?.size.width.toDouble(),
-              height: appservices.inlineBannerAd1?.size.height.toDouble(),
-              child: AdWidget(ad: appservices.inlineBannerAd1!),
-            )
+      return appservices.isinlineBannerAdAdLoaded1
+          ? Material(
+              color: AppColors().kblue.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(5),
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: SizedBox(
+                  width: appservices.inlineBannerAd1?.size.width.toDouble(),
+                  height: appservices.inlineBannerAd1?.size.height.toDouble(),
+                  child: AdWidget(ad: appservices.inlineBannerAd1!),
+                ),
+              ))
           : const SizedBox();
     });
   }

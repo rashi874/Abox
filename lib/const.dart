@@ -1,16 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-// const List kimage = [
-//   "assets/images/1.png",
-//   "assets/images/2.png",
-//   "assets/images/3.png",
-//   "assets/images/4.png",
-//   "assets/images/5.png",
-//   "assets/images/6.png",
-//   "assets/images/7.png",
-//   "assets/images/8.png",
-// ];
+
 
 const bck = 'assets/images/bck.png';
 const bck1 = 'assets/images/bck1.png';
@@ -136,7 +126,7 @@ const kboxwidth5 = SizedBox(
 );
 
 class AppColors {
-  Color kblue = Color(0xffA5B8EF);
+  Color kblue = const Color(0xffA5B8EF);
   Color kwhite = Colors.white;
   Color kblack = Colors.black;
 }

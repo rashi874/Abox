@@ -1,18 +1,13 @@
-import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:abox/ad_helper.dart';
 import 'package:abox/models/text_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-// import 'package:image_gallery_saver/image_gallery_saver.dart';
-// import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:abox/view/screens/widgets/default_button.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
 
 class EditProvider with ChangeNotifier {
@@ -48,28 +43,6 @@ class EditProvider with ChangeNotifier {
     texts[i].left = off.dx;
     notifyListeners();
   }
-  // saveToGallery(BuildContext context) {
-  //   if (texts.isNotEmpty) {
-  //     screenshotController.capture().then((Uint8List? image) {
-  //       saveImage(image!);
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(
-  //           content: Text('Image saved to gallery.'),
-  //         ),
-  //       );
-  //     }).catchError((err) => print(err));
-  //   }
-  // }
-
-  // saveImage(Uint8List bytes) async {
-  //   final time = DateTime.now()
-  //       .toIso8601String()
-  //       .replaceAll('.', '-')
-  //       .replaceAll(':', '-');
-  //   final name = "screenshot_$time";
-  //   await requestPermission(Permission.storage);
-  //   await ImageGallerySaver.saveImage(bytes, name: name);
-  // }
 
   removeText(BuildContext context) {
     texts.removeAt(currentIndex);
@@ -77,7 +50,6 @@ class EditProvider with ChangeNotifier {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         duration: Duration(milliseconds: 340),
-        backgroundColor: Color.fromARGB(255, 255, 112, 90),
         behavior: SnackBarBehavior.floating,
         width: 100,
         shape: StadiumBorder(),
@@ -86,7 +58,6 @@ class EditProvider with ChangeNotifier {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 13.0,
-            color: Colors.black,
           ),
         ),
       ),
@@ -100,7 +71,6 @@ class EditProvider with ChangeNotifier {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         duration: Duration(milliseconds: 340),
-        backgroundColor: Color.fromARGB(255, 244, 232, 196),
         behavior: SnackBarBehavior.floating,
         width: 150,
         shape: StadiumBorder(),
@@ -109,7 +79,6 @@ class EditProvider with ChangeNotifier {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 13.0,
-            color: Colors.black,
           ),
         ),
       ),
@@ -191,37 +160,19 @@ class EditProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<String> saveImage(Uint8List bytes) async {
-  //   await [Permission.storage].request();
-  //   final time = DateTime.now()
-  //       .toIso8601String()
-  //       .replaceAll('.', '_')
-  //       .replaceAll(':', '_');
-  //   final name = 'screenshot_$time';
-  //   FilterQuality.high;
-  //   final result = await ImageGallerySaver.saveImage(
-  //     bytes,
-  //     name: name,
-  //     quality: 300,
-  //   );
-  //   if (result) {
-  //     // print('selected');
-  //   }
-  //   return result['filepath'];
-  // }
-
-  Future<Uint8List> saveImage(Uint8List list) async {
+  Future<void> saveImage(Uint8List bytes) async {
     await [Permission.storage].request();
-    var result = await FlutterImageCompress.compressWithList(
-      list,
-      minHeight: 1920,
-      minWidth: 1080,
-      quality: 96,
-      rotate: 135,
+    final time = DateTime.now()
+        .toIso8601String()
+        .replaceAll('.', '_')
+        .replaceAll(':', '_');
+    final name = 'screenshot_$time';
+    FilterQuality.high;
+    final result = await ImageGallerySaver.saveImage(
+      bytes,
+      name: name,
+      quality: 100,
     );
-    log(list.length.toString());
-    print(result.length);
-    return result;
   }
 
   addNewDialog(context) {
@@ -236,13 +187,6 @@ class EditProvider with ChangeNotifier {
           controller: textEditingController,
           maxLines: 5,
           maxLength: 40,
-          // decoration: const InputDecoration(
-          //   suffixIcon: Icon(
-          //     Icons.edit,
-          //   ),
-          //   filled: true,
-          //   hintText: 'Your Text Here..',
-          // ),
         ),
         actions: <Widget>[
           DefaultButton(
@@ -289,7 +233,7 @@ class EditProvider with ChangeNotifier {
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
-      backgroundColor: Colors.red,
+      // backgroundColor: Colors.red,
       textColor: Colors.white,
       fontSize: 15.0,
     );
@@ -320,7 +264,6 @@ class EditProvider with ChangeNotifier {
                       onPressed: () => Navigator.of(context).pop(),
                       child: const Text(
                         'Select',
-                        style: TextStyle(color: Colors.black),
                       )),
                 ],
               ),
@@ -356,7 +299,6 @@ class EditProvider with ChangeNotifier {
                     },
                     child: const Text(
                       'Select',
-                      style: TextStyle(color: Colors.black),
                     )),
               ],
             ),

@@ -7,7 +7,6 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
-
 // ignore: must_be_immutable
 class VerticleEditing extends StatelessWidget {
   VerticleEditing({
@@ -22,11 +21,13 @@ class VerticleEditing extends StatelessWidget {
   Color? bgscolor;
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     Provider.of<EditProvider>(context, listen: false).coler(bgscolor);
     final prov = Provider.of<AdsProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      prov.createBottomBannerAd(context);
       prov.loadRewardedAd();
+      prov.createInlineBannerAd3(context);
     });
 
     return Consumer2<EditProvider, AdsProvider>(
@@ -41,30 +42,31 @@ class VerticleEditing extends StatelessWidget {
           body: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // SizedBox(
-                //   height: MediaQuery.of(context).size.width * 0.1,
-                // ),
-                adsservices.isBottomBannerAdLoaded
-                    ? SizedBox(
-                        height:
-                            adsservices.bottomBannerAd?.size.height.toDouble(),
-                        width:
-                            adsservices.bottomBannerAd?.size.width.toDouble(),
-                        child: AdWidget(ad: adsservices.bottomBannerAd!),
-                      )
+                adsservices.isinlineBannerAdAdLoaded
+                    ? Material(
+                        color: AppColors().kblue.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(5),
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: SizedBox(
+                            height: adsservices.bottomBannerAd?.size.height
+                                .toDouble(),
+                            width: adsservices.bottomBannerAd?.size.width
+                                .toDouble(),
+                            child: AdWidget(ad: adsservices.inlineBannerAd!),
+                          ),
+                        ))
                     : const SizedBox(
-                        // height: 1,
                         child: Text('AD'),
                       ),
                 Center(
                   child: Screenshot(
                     controller: appservices.screenshotController,
                     child: Container(
-                      height: 460,
-                      width: 300,
+                      height: screenHeight / 1.8,
+                      width: screenWidth / 1.4,
                       decoration: BoxDecoration(
                         color: appservices.bgcolor,
-                        // borderRadius: BorderRadius.circular(8),
                       ),
                       child: Stack(children: [
                         Column(
@@ -162,12 +164,10 @@ class VerticleEditing extends StatelessWidget {
                                 bottom: 0,
                                 child: Text(
                                   appservices.creatorText.text,
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black.withOpacity(
-                                        0.3,
-                                      )),
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               )
                             : const SizedBox.shrink(),
@@ -175,10 +175,10 @@ class VerticleEditing extends StatelessWidget {
                     ),
                   ),
                 ),
-                kbox20,
                 Column(children: [
                   Container(
-                    // padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    margin: const EdgeInsets.all(5),
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
                       color: colors[3],
@@ -187,14 +187,9 @@ class VerticleEditing extends StatelessWidget {
                       onPressed: () => appservices.addNewDialog(context),
                       icon: const Icon(
                         Icons.text_fields_rounded,
-                        color: Colors.black,
                       ),
                     ),
                   ),
-                  const Divider(
-                    color: Color.fromARGB(255, 218, 218, 218),
-                  ),
-                  // image upload in device
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -207,7 +202,6 @@ class VerticleEditing extends StatelessWidget {
                           onPressed: () => appservices.uploadImage(),
                           icon: const Icon(
                             Icons.add_photo_alternate_rounded,
-                            color: Colors.black,
                           ),
                         ),
                       ),
@@ -221,14 +215,12 @@ class VerticleEditing extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // const Text('Background'),
                             IconButton(
                               onPressed: () => appservices.pickColor(
                                 context,
                               ),
                               icon: const Icon(
                                 Icons.format_color_fill_rounded,
-                                color: Colors.black,
                               ),
                             ),
                             Container(
@@ -249,14 +241,12 @@ class VerticleEditing extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // const Text('Text color'),
                             IconButton(
                               onPressed: () {
                                 appservices.textpickColor(context);
                               },
                               icon: const Icon(
                                 Icons.format_color_text_rounded,
-                                color: Colors.black,
                               ),
                             ),
                             Container(
@@ -278,23 +268,16 @@ class VerticleEditing extends StatelessWidget {
                             IconButton(
                               icon: const Icon(
                                 Icons.downloading_rounded,
-                                color: Colors.black,
                               ),
                               onPressed: () {
-                                // saveToGallery(context);
                                 appservices.screenshotController
                                     .capture(
                                         delay: const Duration(milliseconds: 0))
                                     .then((capturedImage) async {
-                                  // appservices.saveImage(capturedImage!);
-                                  appservices.saveImage(capturedImage!);
+                                  await appservices.saveImage(capturedImage!);
                                   appservices.showToast(" image saved");
-                                }).catchError((onError) {
-                                  // print(onError);
-                                });
+                                }).catchError((onError) {});
                               },
-
-                              //  saveToGallery(context),,
                               tooltip: 'Save Image',
                             ),
                           ],
@@ -302,7 +285,6 @@ class VerticleEditing extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
@@ -313,7 +295,6 @@ class VerticleEditing extends StatelessWidget {
                           IconButton(
                             icon: const Icon(
                               Icons.add,
-                              color: Colors.black,
                             ),
                             onPressed: appservices.increaseFontSize,
                             tooltip: 'Increase font size',
@@ -321,7 +302,6 @@ class VerticleEditing extends StatelessWidget {
                           IconButton(
                             icon: const Icon(
                               Icons.remove,
-                              color: Colors.black,
                             ),
                             onPressed: appservices.decreaseFontSize,
                             tooltip: 'Decrease font size',
@@ -329,7 +309,6 @@ class VerticleEditing extends StatelessWidget {
                           IconButton(
                             icon: const Icon(
                               Icons.format_align_left,
-                              color: Colors.black,
                             ),
                             onPressed: appservices.alignLeft,
                             tooltip: 'Align left',
@@ -337,7 +316,6 @@ class VerticleEditing extends StatelessWidget {
                           IconButton(
                             icon: const Icon(
                               Icons.format_align_center,
-                              color: Colors.black,
                             ),
                             onPressed: appservices.alignCenter,
                             tooltip: 'Align Center',
@@ -345,7 +323,6 @@ class VerticleEditing extends StatelessWidget {
                           IconButton(
                             icon: const Icon(
                               Icons.format_align_right,
-                              color: Colors.black,
                             ),
                             onPressed: appservices.alignRight,
                             tooltip: 'Align Right',
@@ -353,7 +330,6 @@ class VerticleEditing extends StatelessWidget {
                           IconButton(
                             icon: const Icon(
                               Icons.format_bold,
-                              color: Colors.black,
                             ),
                             onPressed: appservices.boldText,
                             tooltip: 'Bold',
@@ -361,7 +337,6 @@ class VerticleEditing extends StatelessWidget {
                           IconButton(
                             icon: const Icon(
                               Icons.format_italic,
-                              color: Colors.black,
                             ),
                             onPressed: appservices.italicText,
                             tooltip: 'Italic',
@@ -369,7 +344,6 @@ class VerticleEditing extends StatelessWidget {
                           IconButton(
                             icon: const Icon(
                               Icons.space_bar,
-                              color: Colors.black,
                             ),
                             onPressed: appservices.addLinesToText,
                             tooltip: 'Add New Line',
