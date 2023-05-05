@@ -23,11 +23,12 @@ class _ScreenHomeState extends State<ScreenHome> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
+      systemNavigationBarColor: Colors.transparent.withOpacity(0.1),
     ));
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: [SystemUiOverlay.top]);
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge,
+    //     overlays: [SystemUiOverlay.bottom]);
     final prov = Provider.of<AdsProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       AdsProvider().bottomBannerAd?.dispose();
@@ -121,6 +122,25 @@ class _ScreenHomeState extends State<ScreenHome> {
               ],
             ),
             const HorizontalRecomendedTemplates(),
+            appservices.isBottomBannerAdLoaded
+                ? Material(
+                    color: AppColors().kblue.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(5),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: SizedBox(
+                        height:
+                            appservices.bottomBannerAd?.size.height.toDouble(),
+                        width:
+                            appservices.bottomBannerAd?.size.width.toDouble(),
+                        child: AdWidget(ad: appservices.bottomBannerAd!),
+                      ),
+                    ),
+                  )
+                : const SizedBox(
+                    // height: 1,
+                    child: Text('AD'),
+                  ),
             const VerticleRecTemplates(),
             Stack(
               alignment: AlignmentDirectional.topCenter,
@@ -137,25 +157,6 @@ class _ScreenHomeState extends State<ScreenHome> {
                         BlendMode.dstOut),
                   ),
                 ),
-                appservices.isBottomBannerAdLoaded
-                    ? Material(
-                        color: AppColors().kblue.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(5),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: SizedBox(
-                            height: appservices.bottomBannerAd?.size.height
-                                .toDouble(),
-                            width: appservices.bottomBannerAd?.size.width
-                                .toDouble(),
-                            child: AdWidget(ad: appservices.bottomBannerAd!),
-                          ),
-                        ),
-                      )
-                    : const SizedBox(
-                        // height: 1,
-                        child: Text('AD'),
-                      ),
               ],
             ),
           ],

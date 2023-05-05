@@ -19,7 +19,7 @@ class AdsProvider with ChangeNotifier {
             MediaQuery.of(context).size.width.truncate());
     inlineBannerAd1 = BannerAd(
       size: size!,
-      // size: AdSize.banner,
+      // size: AdSize.fluid,
       adUnitId: AdHelper.bannerAdUnitId,
       request: const AdRequest(),
       listener: BannerAdListener(
