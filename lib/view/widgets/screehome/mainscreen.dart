@@ -23,10 +23,10 @@ class _ScreenHomeState extends State<ScreenHome> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      systemNavigationBarColor: Colors.transparent.withOpacity(0.1),
-    ));
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //   statusBarColor: Colors.transparent,
+    //   systemNavigationBarColor: Colors.transparent.withOpacity(0.1),
+    // ));
     // SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge,
     //     overlays: [SystemUiOverlay.bottom]);
     final prov = Provider.of<AdsProvider>(context, listen: false);
@@ -142,23 +142,24 @@ class _ScreenHomeState extends State<ScreenHome> {
                     child: Text('AD'),
                   ),
             const VerticleRecTemplates(),
-            Stack(
-              alignment: AlignmentDirectional.topCenter,
-              children: [
-                SizedBox(
-                  width: screenWidth,
-                  child: SvgPicture.asset(
-                    'assets/images/Vectors.svg',
-                    fit: BoxFit.fill,
-                    alignment: Alignment.topCenter,
-                    colorFilter: ColorFilter.mode(
-                        const Color.fromARGB(255, 255, 255, 255)
-                            .withOpacity(0.6),
-                        BlendMode.dstOut),
-                  ),
-                ),
-              ],
-            ),
+            kbox20,
+            // Stack(
+            //   alignment: AlignmentDirectional.topCenter,
+            //   children: [
+            //     SizedBox(
+            //       width: screenWidth,
+            //       child: SvgPicture.asset(
+            //         'assets/images/Vectors.svg',
+            //         fit: BoxFit.fill,
+            //         alignment: Alignment.topCenter,
+            //         colorFilter: ColorFilter.mode(
+            //             const Color.fromARGB(255, 255, 255, 255)
+            //                 .withOpacity(0.6),
+            //             BlendMode.dstOut),
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
         floatingActionButton: FloatingActionButton(

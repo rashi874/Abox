@@ -16,14 +16,11 @@ class EditProvider with ChangeNotifier {
   ScreenshotController screenshotController = ScreenshotController();
   File file = File("zz");
   Offset offset = Offset.zero;
-
   Color textcolor = const Color.fromARGB(255, 0, 0, 0);
   late Color bgcolor;
-
   coler(color) {
     bgcolor = color;
   }
-
   List<TextInfo> texts = [];
   int currentIndex = 0;
   currentintex(i, context) {
@@ -31,19 +28,16 @@ class EditProvider with ChangeNotifier {
     removeText(context);
     notifyListeners();
   }
-
   initintexverticle(i, off) {
     texts[i].top = off.dy - 96;
     texts[i].left = off.dx - 30;
     notifyListeners();
   }
-
   initintexhorizontal(i, off) {
     texts[i].top = off.dy - 200;
     texts[i].left = off.dx;
     notifyListeners();
   }
-
   removeText(BuildContext context) {
     texts.removeAt(currentIndex);
     notifyListeners();
@@ -63,11 +57,9 @@ class EditProvider with ChangeNotifier {
       ),
     );
   }
-
   setCurrentIndex(BuildContext context, index) {
     currentIndex = index;
     notifyListeners();
-
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         duration: Duration(milliseconds: 340),
@@ -84,37 +76,30 @@ class EditProvider with ChangeNotifier {
       ),
     );
   }
-
   changeTextColor() {
     texts[currentIndex].color = textcolor;
     notifyListeners();
   }
-
   increaseFontSize() {
     texts[currentIndex].fontSize += 2;
     notifyListeners();
   }
-
   decreaseFontSize() {
     texts[currentIndex].fontSize -= 2;
     notifyListeners();
   }
-
   alignLeft() {
     texts[currentIndex].textAlign = TextAlign.left;
     notifyListeners();
   }
-
   alignCenter() {
     texts[currentIndex].textAlign = TextAlign.center;
     notifyListeners();
   }
-
   alignRight() {
     texts[currentIndex].textAlign = TextAlign.right;
     notifyListeners();
   }
-
   boldText() {
     if (texts[currentIndex].fontWeight == FontWeight.bold) {
       texts[currentIndex].fontWeight = FontWeight.normal;
@@ -123,7 +108,6 @@ class EditProvider with ChangeNotifier {
     }
     notifyListeners();
   }
-
   italicText() {
     if (texts[currentIndex].fontStyle == FontStyle.italic) {
       texts[currentIndex].fontStyle = FontStyle.normal;
@@ -132,7 +116,6 @@ class EditProvider with ChangeNotifier {
     }
     notifyListeners();
   }
-
   addLinesToText() {
     if (texts[currentIndex].text.contains('\n')) {
       texts[currentIndex].text = texts[currentIndex].text.replaceAll('\n', ' ');
@@ -141,7 +124,6 @@ class EditProvider with ChangeNotifier {
     }
     notifyListeners();
   }
-
   addNewText(BuildContext context) {
     texts.add(
       TextInfo(
@@ -156,10 +138,8 @@ class EditProvider with ChangeNotifier {
       ),
     );
     Navigator.of(context).pop();
-
     notifyListeners();
   }
-
   Future<void> saveImage(Uint8List bytes) async {
     await [Permission.storage].request();
     final time = DateTime.now()
@@ -174,7 +154,6 @@ class EditProvider with ChangeNotifier {
       quality: 100,
     );
   }
-
   addNewDialog(context) {
     showDialog(
       context: context,
@@ -208,25 +187,19 @@ class EditProvider with ChangeNotifier {
       ),
     );
   }
-
   uploadImage() async {
     final ImagePicker picker = ImagePicker();
     XFile? image = await picker.pickImage(source: ImageSource.gallery);
-
     if (image != null) {
       var selected = File(image.path);
-
       file = selected;
       notifyListeners();
-
       // showToast(" file selected");
     } else {
       // showToast("No file selected");
     }
   }
-
 //background color picker
-
   void showToast(String message) {
     Fluttertoast.showToast(
       msg: message,
@@ -238,14 +211,12 @@ class EditProvider with ChangeNotifier {
       fontSize: 15.0,
     );
   }
-
   Widget builColorPicker() => ColorPicker(
       pickerColor: bgcolor,
       onColorChanged: (color) {
         notifyListeners();
         bgcolor = color;
       });
-
   pickColor(
     BuildContext context,
   ) {
@@ -269,16 +240,13 @@ class EditProvider with ChangeNotifier {
               ),
             ));
   }
-
 // text color picker
-
   Widget textbuilColorPicker() => ColorPicker(
       pickerColor: textcolor,
       onColorChanged: (color) {
         notifyListeners();
         textcolor = color;
       });
-
   void textpickColor(BuildContext context) => {
         showDialog(
           context: context,

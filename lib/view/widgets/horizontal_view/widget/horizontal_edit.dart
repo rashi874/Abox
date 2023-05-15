@@ -121,8 +121,8 @@ class HorizontalEditing extends StatelessWidget {
                                 kboxwidth10,
                                 Container(
                                   // padding: const EdgeInsets.all(10.0),
-                                  height: 200,
-                                  width: 150,
+                                  width: screenWidth / 3,
+                                  height: screenHeight / 4.2,
                                   decoration: BoxDecoration(
                                     // color: colors[0],
                                     // borderRadius: BorderRadius.circular(10),
@@ -144,8 +144,8 @@ class HorizontalEditing extends StatelessWidget {
                                                     BorderRadius.circular(12),
                                                 child: Image.asset(
                                                   image!,
-                                                  width: 70,
-                                                  height: 151,
+                                                  width: screenWidth / 5.2,
+                                                  height: screenHeight / 5.8,
                                                   fit: BoxFit.fill,
                                                 ),
                                               ),
@@ -157,8 +157,8 @@ class HorizontalEditing extends StatelessWidget {
                                                 child: Image.file(
                                                   appservices.file,
                                                   fit: BoxFit.fill,
-                                                  width: 70,
-                                                  height: 150,
+                                                  width: screenWidth / 5.4,
+                                                  height: screenHeight / 5.9,
                                                   filterQuality:
                                                       FilterQuality.high,
                                                 ),
@@ -166,8 +166,8 @@ class HorizontalEditing extends StatelessWidget {
                                             ),
                                       Center(
                                         child: Container(
-                                          width: 75,
-                                          height: 152,
+                                          width: screenWidth / 5.1,
+                                          height: screenHeight / 5.7,
                                           decoration: BoxDecoration(
                                             // borderRadius:
                                             //     BorderRadius.circular(10),
